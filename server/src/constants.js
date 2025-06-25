@@ -1,1 +1,1 @@
-export const DB_NAME = "Anonymous-Chat-Romms"
+export const DB_NAME = "Anonymous-Chat-Rooms"
