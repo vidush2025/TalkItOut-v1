@@ -6,6 +6,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 const sendMessage = asyncHandler(async (req, res) => {
     const {channelId, content} = req.body;
     const senderId = req.user?._id;
+    let voiceUrl = null;
 
     if(!channelId || !senderId)
         throw new ApiError(
@@ -13,13 +14,11 @@ const sendMessage = asyncHandler(async (req, res) => {
             "Channel or User not found. Message could not be sent."   
         );
 
-    if(!content && !voiceUrl)
+    if(!content && !req.file?.path)
         throw new ApiError(
             400,
             "Message was empty."
         );
-
-    let voiceUrl = null;
 
     if (req.file?.path) {
         const uploadResult = await uploadOnCloudinary(req.file.path);
@@ -31,6 +30,7 @@ const sendMessage = asyncHandler(async (req, res) => {
         senderId,
         content,
         voiceUrl,
+        isRant: false
     });
 
     if(!newMessage)
@@ -55,8 +55,11 @@ const getMessages = asyncHandler(async(req, res)=> {
             400,
             "Channel-id is required."
         )
-    const messages = await Message.find({channelId})
-                .sort({createdAt : 1});
+    const messages = await Message.find({
+        channelId,
+        isRant: {$ne: true}
+    })
+    .sort({createdAt : 1});
 
     if(messages.length === 0)
         return res.status(200).json(
@@ -71,7 +74,9 @@ const getMessages = asyncHandler(async(req, res)=> {
         new ApiResponse(
             200,
             messages,
-            "Conversation fetched successfully!"
+            messages.length === 0
+                ? "No messages found in this conversation."
+                : "Conversation fetched successfully!"
         )
     );
 });

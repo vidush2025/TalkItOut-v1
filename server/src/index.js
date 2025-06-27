@@ -7,14 +7,3 @@ dotenv.config({
 
 connectDB()
 
-// import express from "express "
-
-// (async () => {
-//     try{
-//         await mongoose.connect(`${process.env.MONGODB_URL}/${DB_NAME}`)
-//     }catch(err){
-//         console.log("ERROR:", err)
-//     }
-// })()
-
-

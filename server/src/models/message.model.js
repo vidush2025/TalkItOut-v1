@@ -2,8 +2,10 @@ import mongoose, {Schema} from "mongoose";
 
 const messageSchema = new Schema({
     channelId:{
-        type: String,
-        required: true
+        type: mongoose.model.Types.ObjectId,
+        ref: "Channel",
+        
+        default: null // null if it's a Rant
     },
     senderId:{
         type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +23,14 @@ const messageSchema = new Schema({
         type: Date,
         default: Date.now,
         expires: 43200 //12hrs (in seconds)
+    },
+    isRant: {
+        type: Boolean,
+        default: false
+    },
+    deleteAfter: {
+        type: Number, // in hours
+        default: null
     }
 }, {timestamps: true});
 
