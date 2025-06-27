@@ -12,7 +12,7 @@ const channelSchema = new Schema({
     },
     isPublic:{
         type: Boolean,
-        default: true
+        default: false
     },
     createdBy:{
         type:mongoose.Schema.Types.ObjectId,

@@ -8,6 +8,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.0",
+    "nanoid": "^5.1.5",
     "pnpm": "^10.12.4",
     "socket.io": "^4.8.1"
   },
