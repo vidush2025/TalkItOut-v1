@@ -15,7 +15,7 @@ const uploadOnCloudinary = async (localPath) => {
     }
 
     const result = await cloudinary.uploader.upload(localPath, {
-      resource_type: "auto",
+      resource_type: "video", //audio is also recognised as video
     });
 
     console.log("✅ File uploaded to Cloudinary:", result.secure_url);

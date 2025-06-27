@@ -18,8 +18,17 @@ router.post("/channel", verifyJWT, createChannel);
 router.get("/channel/:id", verifyJWT, getChannel);
 
 //message routes
-router.post("/message", verifyJWT, sendMessage);
 router.get("/message", verifyJWT, getMessages);
+
+//voicenote feature
+router.post(
+    "/message",
+    verifyJWT,
+    upload.single("voice"),
+    checkAudioDuration,
+    sendMessage               
+);
+
 
 
 export default router;

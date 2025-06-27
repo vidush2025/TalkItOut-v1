@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const sendMessage = asyncHandler(async (req, res) => {
-    const {channelId, content, voiceUrl = null} = req.body;
+    const {channelId, content} = req.body;
     const senderId = req.user?._id;
 
     if(!channelId || !senderId)
@@ -18,6 +18,13 @@ const sendMessage = asyncHandler(async (req, res) => {
             400,
             "Message was empty."
         );
+
+    let voiceUrl = null;
+
+    if (req.file?.path) {
+        const uploadResult = await uploadOnCloudinary(req.file.path);
+        voiceUrl = uploadResult?.secure_url;
+    }
     
     const newMessage = await Message.create({
         channelId,
