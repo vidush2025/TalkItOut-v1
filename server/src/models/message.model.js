@@ -2,9 +2,8 @@ import mongoose, {Schema} from "mongoose";
 
 const messageSchema = new Schema({
     channelId:{
-        type: mongoose.model.Types.ObjectId,
-        ref: "Channel",
-        
+        type: String,
+        required: true,
         default: null // null if it's a Rant
     },
     senderId:{
