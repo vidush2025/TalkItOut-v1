@@ -1,7 +1,6 @@
 import multer from "multer";
 import fs from "fs";
 import path from "path";
-import ffmpeg from "fluent-ffmpeg"; 
 
 const tempDir = path.join(process.cwd(), "public", "temp");
 
@@ -37,23 +36,4 @@ const upload = multer({
   }
 });
 
-const checkAudioDuration = (req, res, next) => {
-  if (!req.file?.path) return next();
-
-  ffmpeg.ffprobe(req.file.path, (err, metadata) => {
-    if (err) {
-      return res.status(400).json({ success: false, message: "Could not read audio file metadata." });
-    }
-
-    const duration = metadata.format.duration;
-    if (duration > 60) {
-      // Delete the file if too long
-      fs.unlinkSync(req.file.path);
-      return res.status(400).json({ success: false, message: "Voice note must be under 1 minute." });
-    }
-
-    next();
-  });
-};
-
-export { upload, checkAudioDuration };
+export { upload };

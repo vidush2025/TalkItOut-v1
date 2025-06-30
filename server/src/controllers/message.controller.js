@@ -2,6 +2,7 @@ import { Message } from "../models/message.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const sendMessage = asyncHandler(async (req, res) => {
     const {channelId, content} = req.body;

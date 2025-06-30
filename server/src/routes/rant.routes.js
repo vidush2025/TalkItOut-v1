@@ -7,7 +7,8 @@ import {
     } from "../controllers/rant.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { upload, checkAudioDuration } from "../middlewares/multer.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
+import { checkAudioDuration } from "../middlewares/checkAudioDuration.middleware.js";
 
 const router = Router();
 
