@@ -29,9 +29,21 @@ const Channels = () => {
     navigate("/create-channel");
   };
 
+  const goToRantSpace = () => {
+    navigate("/rant");
+  };
+
   return (
     <div className="min-h-screen px-8 py-6 bg-[#111827] text-white">
-      <h1 className="text-3xl font-bold mb-6 glow">Welcome to Anonymous Chatrooms</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold glow">Welcome to Anonymous Chatrooms</h1>
+        <button
+          onClick={goToRantSpace}
+          className="bg-blue-500 text-while hover:bg-blue-600 px-4 py-2 rounded font-semibold transition"
+        >
+          🌟 Visit RantSpace
+        </button>
+      </div>
 
       <div className="mb-6">
         <button
@@ -44,12 +56,12 @@ const Channels = () => {
 
       <div className="space-y-3">
         {channels.length === 0 ? (
-          <p>No public channels found.</p>
+          <p className="text-gray-400">No public channels found.</p>
         ) : (
           channels.map((channel) => (
             <div
               key={channel.channelId}
-              className="flex justify-between items-center bg-gray-900 p-4 rounded"
+              className="flex justify-between items-center bg-gray-900 p-4 rounded hover:scale-[1.01] transition"
             >
               <span className="font-medium">{channel.name}</span>
               <button

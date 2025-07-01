@@ -3,7 +3,6 @@ import mongoose, {Schema} from "mongoose";
 const messageSchema = new Schema({
     channelId:{
         type: String,
-        required: true,
         default: null // null if it's a Rant
     },
     senderId:{

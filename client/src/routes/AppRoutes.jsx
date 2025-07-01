@@ -6,7 +6,8 @@ import Chatroom from "../pages/Chatroom";
 import RantSpace from "../pages/RantSpace";
 import ProtectedLayout from "../layouts/ProtectedLayout";
 import CreateChannelPage from "../pages/createChannelPage";
-
+import Profile from "../pages/Profile";
+import CreateRant from "../pages/CreateRant";
 
 
 const AppRoutes = () => {
@@ -24,6 +25,11 @@ const AppRoutes = () => {
         <Route path="/chatroom/:channelId" element={<Chatroom />} />
         <Route path="/rant" element={<RantSpace />} />
         <Route path="/create-channel" element={<CreateChannelPage />} />
+
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/rant" element={<RantSpace />} />
+          <Route path="/rant/create" element={<CreateRant />} />
+
       </Route>
     </Routes>
   );

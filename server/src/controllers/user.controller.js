@@ -147,8 +147,32 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 });
 
+const getUser = asyncHandler(async (req, res) => {
+    const currUser = await User.findById(req.user._id).select(
+            "-password -refreshToken"
+        )
+    
+    if(!currUser)
+        throw new ApiError(
+            404,
+            "User not found."
+        )
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            currUser,
+            "Profile fetched successfully!"
+        )
+    )
+
+})
+
 export {
     generateTokens,
     registerUser,
     loginUser,
+    getUser
 }

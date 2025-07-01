@@ -1,10 +1,24 @@
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="w-full px-6 py-4 bg-[#1f2937] text-white flex justify-between items-center shadow-md">
-      <h1 className="text-xl font-bold tracking-wide glow">AnonChat</h1>
+      <h1
+        className="text-xl font-bold tracking-wide glow cursor-pointer hover:text-pink-500 transition"
+        onClick={() => navigate("/")}
+      >
+        TalkItOut
+      </h1>
+
       <div>
-        {/* Future: Add avatar, dropdown, logout etc. */}
-        <span className="text-sm text-gray-300">AnonymousUser</span>
+        <span
+          className="text-sm text-gray-300 hover:text-white cursor-pointer transition"
+          onClick={() => navigate("/profile")}
+        >
+          AnonymousUser
+        </span>
       </div>
     </nav>
   );
