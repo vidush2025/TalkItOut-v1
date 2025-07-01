@@ -5,6 +5,9 @@ import Channels from "../pages/Channels";
 import Chatroom from "../pages/Chatroom";
 import RantSpace from "../pages/RantSpace";
 import ProtectedLayout from "../layouts/ProtectedLayout";
+import CreateChannelPage from "../pages/createChannelPage";
+
+
 
 const AppRoutes = () => {
   const isAuthenticated = !!localStorage.getItem("auth");
@@ -20,6 +23,7 @@ const AppRoutes = () => {
         <Route path="/channels" element={<Channels />} />
         <Route path="/chatroom/:channelId" element={<Chatroom />} />
         <Route path="/rant" element={<RantSpace />} />
+        <Route path="/create-channel" element={<CreateChannelPage />} />
       </Route>
     </Routes>
   );

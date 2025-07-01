@@ -72,7 +72,21 @@ const getChannel = asyncHandler(async(req, res) => {
     )
 });
 
+const getAllPublicChannels = asyncHandler(async (req, res) => {
+  const channels = await Channel.find({ isPublic: true });
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      channels,
+      "Fetched all public channels."
+    )
+  );
+});
+
+
 export {
     createChannel,
-    getChannel
+    getChannel,
+    getAllPublicChannels
 }
