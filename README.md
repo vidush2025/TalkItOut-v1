@@ -4,7 +4,6 @@
 
 <div align="center">
   <img src="https://img.shields.io/badge/Stack-MERN-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Deployed%20on-Render-orange?style=for-the-badge" />
 </div>
 
 ---
