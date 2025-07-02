@@ -9,11 +9,6 @@
 
 ---
 
-## 🔗 Live Demo
-
-> Coming soon: [talkitout-client.onrender.com](https://talkitout-client.onrender.com)
-
----
 
 ## 📸 Features
 
@@ -37,7 +32,6 @@
 | Real-time    | Socket.io                     |
 | Database     | MongoDB Atlas (Mongoose ORM)  |
 | Auth         | JWT, HttpOnly Cookies         |
-| Deployment   | Render (both FE & BE)         |
 
 ---
 
