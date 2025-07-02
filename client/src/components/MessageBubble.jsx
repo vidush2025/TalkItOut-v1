@@ -1,4 +1,4 @@
-const MessageBubble = ({ content, voiceUrl, isOwn }) => {
+const MessageBubble = ({ username, content, voiceUrl, isOwn }) => {
   return (
     <div className={`flex ${isOwn ? "justify-end" : "justify-start"} my-2`}>
       <div
@@ -6,7 +6,12 @@ const MessageBubble = ({ content, voiceUrl, isOwn }) => {
           isOwn ? "bg-blue-600 text-white" : "bg-gray-800 text-white"
         }`}
       >
+        {!isOwn && username && (
+          <p className="text-sm font-semibold text-pink-400 mb-1">{username}</p>
+        )}
+
         {content && <p>{content}</p>}
+
         {voiceUrl && (
           <audio controls className="mt-2 w-full">
             <source src={voiceUrl} type="audio/mpeg" />

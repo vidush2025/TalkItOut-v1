@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 
@@ -57,9 +57,19 @@ const Profile = () => {
         </div>
 
         <button
-          onClick={() => {
-            localStorage.removeItem("auth");
-            navigate("/login");
+          onClick={async () => {
+            try {
+              await axios.post(
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/users/logout`,
+                {},
+                { withCredentials: true }
+              );
+            } catch (error) {
+              console.error("Logout failed", error);
+            } finally {
+              localStorage.removeItem("auth");
+              navigate("/login");
+            }
           }}
           className="mt-6 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded"
         >

@@ -170,9 +170,93 @@ const getUser = asyncHandler(async (req, res) => {
 
 })
 
+const updatePassword = asyncHandler(async(req, res) => {
+    const{oldPassword, newPasssword} = req.body;
+
+    if(!oldPassword || !newPasssword)
+        throw new ApiError(400, "Both passwords are required.");
+
+    const currUser = await User.findById(req.user?._id);
+    const isPasswordCorrect = await isPasswordCorrect(oldPassword);
+
+    if(!isPasswordCorrect)
+        throw new ApiError(404, "Incorrect Password");
+
+    currUser.password = newPasssword;
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, {}, "Password changed successfully")
+    )
+})
+
+const updateUserDetails = asyncHandler(async (req, res) => {
+  const { userId, email, phone, rantPreferences } = req.body;
+
+  const updateData = {};
+
+  if (userId) updateData.userId = userId;
+  if (email) updateData.email = email;
+  if (phone) updateData.phone = phone;
+  if (rantPreferences) {
+    updateData.rantPreferences = {};
+
+    if (typeof rantPreferences.autoDelete === "boolean") {
+      updateData.rantPreferences.autoDelete = rantPreferences.autoDelete;
+    }
+
+    if (typeof rantPreferences.deleteAfter === "number") {
+      updateData.rantPreferences.deleteAfter = rantPreferences.deleteAfter;
+    }
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user._id,
+    { $set: updateData },
+    { new: true, runValidators: true }
+  ).select("-password -refreshToken");
+
+  res.status(200).json({
+    success: true,
+    message: "User details updated successfully",
+    data: updatedUser,
+  });
+});
+
+const logoutUser = asyncHandler(async(req, res) => {
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $unset: {
+                refreshToken: 1 // this removes the field from document
+            }
+        },
+        {
+            new: true
+        }
+    )
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200, {}, "User logged Out"))
+})
+
+
+
 export {
     generateTokens,
     registerUser,
     loginUser,
-    getUser
+    getUser,
+    updatePassword,
+    updateUserDetails,
+    logoutUser
 }

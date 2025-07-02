@@ -8,6 +8,8 @@ import ProtectedLayout from "../layouts/ProtectedLayout";
 import CreateChannelPage from "../pages/createChannelPage";
 import Profile from "../pages/Profile";
 import CreateRant from "../pages/CreateRant";
+import UpdateProfile from "../pages/UpdateProfile"
+import ChangePassword from "../pages/ChangePassword";
 
 
 const AppRoutes = () => {
@@ -29,6 +31,8 @@ const AppRoutes = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/rant" element={<RantSpace />} />
           <Route path="/rant/create" element={<CreateRant />} />
+          <Route path="/profile/update" element={<UpdateProfile />} />
+          <Route path="/profile/change-password" element={<ChangePassword />} />        
 
       </Route>
     </Routes>

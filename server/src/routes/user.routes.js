@@ -3,7 +3,10 @@ import {
   registerUser,
   loginUser,
   generateTokens,
-  getUser
+  getUser,
+  updateUserDetails,
+  updatePassword,
+  logoutUser
 } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
@@ -13,11 +16,11 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/profile", verifyJWT, getUser)
 
-router.post("refresh-token", generateTokens);
+router.post("/refresh-token", generateTokens);
 
 
-// router.post("/logout", verifyJWT, logoutUser);
-// router.get("/me", verifyJWT, getCurrentUser);
-// router.get("/refresh-token", refreshAccessToken);
+router.post("/logout", verifyJWT, logoutUser);
+router.patch("/update-user-details", verifyJWT, updateUserDetails)
+router.patch("/update-password", verifyJWT, updatePassword)
 
 export default router;

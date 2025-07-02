@@ -34,14 +34,15 @@ const sendMessage = asyncHandler(async (req, res) => {
         isRant: false
     });
 
-    const io = req.app.get("io");
-    io.to(channelId).emit("recieve-message", newMessage);
-
     if(!newMessage)
         throw new ApiError(
             500,
             "Message could not be sent. Something went wrong."
         );
+        
+    const io = req.app.get("io");
+    io.to(channelId).emit("recieve-message", newMessage);
+
     
     return res.status(200).json(
         new ApiResponse(

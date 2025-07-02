@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../utils/axios";
 import { socket } from "../sockets/socket.js";
 
 const Chatroom = () => {
@@ -11,23 +11,27 @@ const Chatroom = () => {
   const messagesEndRef = useRef(null);
   const currentUserId = JSON.parse(localStorage.getItem("auth"))?._id;
 
-    useEffect(() => {
-        socket.on("recieve-message", (newMsg) => {
-            setMessages((prev) => [...prev, newMsg]);
-        });
-
-        return () => socket.off("recieve-message");
-        }, []);
 
     useEffect(() => {
-        if (channelId) {
-            socket.emit("join-room", channelId);
+      if (!socket.connected) socket.connect();
+
+      if (!channelId) return;
+
+      socket.emit("join-room", channelId);
+
+      const handleReceiveMessage = (newMsg) => {
+        if (newMsg.channelId === channelId) {
+          setMessages((prev) => [...prev, newMsg]);
         }
+      };
 
-        return () => {
-            socket.emit("leave-room", channelId);
-        };
-        }, [channelId]);
+      socket.on("recieve-message", handleReceiveMessage);
+
+      return () => {
+        socket.emit("leave-room", channelId);
+        socket.off("recieve-message", handleReceiveMessage);
+      };
+    }, [channelId]);
 
 
 
@@ -42,8 +46,7 @@ const Chatroom = () => {
       console.error("Failed to load messages", error);
     }
   };
-
-  const handleSendMessage = async () => {
+const handleSendMessage = async () => {
     if (!content && !voice) return;
 
     const formData = new FormData();
@@ -58,12 +61,13 @@ const Chatroom = () => {
       });
       setContent("");
       setVoice(null);
-      setMessages((prev) => [...prev, res.data.data]);
+
+      // Optimistically add the message to the UI
+      // setMessages((prev) => [...prev, res.data.data]);
     } catch (error) {
       alert("Failed to send message.");
     }
   };
-
   useEffect(() => {
     fetchMessages();
   }, [channelId]);

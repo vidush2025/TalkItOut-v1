@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { getAuthUser, logout } from "../utils/auth";
 
+const user = getAuthUser();
 const Navbar = () => {
+  
   const navigate = useNavigate();
 
   return (
@@ -17,7 +20,7 @@ const Navbar = () => {
           className="text-sm text-gray-300 hover:text-white cursor-pointer transition"
           onClick={() => navigate("/profile")}
         >
-          AnonymousUser
+        {user.username}
         </span>
       </div>
     </nav>
