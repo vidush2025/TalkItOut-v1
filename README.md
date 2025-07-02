@@ -40,3 +40,9 @@
 | Deployment   | Render (both FE & BE)         |
 
 ---
+
+
+## 👨‍💻 Developed by
+Vidush Pandey
+Full Stack Developer, Musician, Open Source Enthusiast
+GitHub
