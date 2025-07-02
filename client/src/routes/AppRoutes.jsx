@@ -5,7 +5,7 @@ import Channels from "../pages/Channels";
 import Chatroom from "../pages/Chatroom";
 import RantSpace from "../pages/RantSpace";
 import ProtectedLayout from "../layouts/ProtectedLayout";
-import CreateChannelPage from "../pages/createChannelPage";
+import CreateChannelPage from "../pages/CreateChannelPage";
 import Profile from "../pages/Profile";
 import CreateRant from "../pages/CreateRant";
 import UpdateProfile from "../pages/UpdateProfile"
